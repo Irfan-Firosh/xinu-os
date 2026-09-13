@@ -6,14 +6,13 @@ export default function Home() {
   return (
     <main className="mx-auto max-w-3xl px-6">
       <section className="pt-20 pb-16">
-        <p className="label">Purdue CS354 &middot; Spring 2026</p>
+        <p className="label">Bare metal &middot; x86 &middot; 2026</p>
         <h1 className="mt-4 max-w-[20ch] text-[2.15rem] font-semibold leading-[1.14] tracking-[-0.025em] text-ink-strong">
-          A teaching kernel, six labs deep, on real hardware
+          A teaching kernel, six subsystems deep, on real hardware
         </h1>
         <p className="mt-5 max-w-[58ch] text-[0.95rem] leading-relaxed text-muted">
-          Six operating-systems labs written on Purdue{`’`}s XINU distribution
-          and merged afterward into one kernel, booted on an Intel Galileo board
-          in a rack at Purdue.
+          Six subsystems built on the XINU teaching kernel and merged into one
+          tree, booted on an Intel Galileo board over a serial console.
         </p>
 
         <div className="mt-10">

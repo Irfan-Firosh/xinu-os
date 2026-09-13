@@ -20,7 +20,7 @@ const plexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   title: "XINU on Intel Galileo",
   description:
-    "A teaching kernel built across six operating-systems labs at Purdue, booting on real hardware: a feedback-queue scheduler, a semaphore deadlock detector, a kernel garbage collector and indirect block resolution.",
+    "A teaching kernel extended with six subsystems and booted on real hardware: a feedback-queue scheduler, a semaphore deadlock detector, a kernel garbage collector and indirect block resolution.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -46,9 +46,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <footer className="border-t border-divider">
           <div className="mx-auto max-w-3xl px-6 py-10">
             <p className="max-w-[62ch] text-[0.8rem] leading-relaxed text-meta">
-              Purdue CS354, Spring 2026. XINU is a teaching kernel by Douglas
-              Comer; this documents work added on top of it and carries none of
-              its source.
+              XINU is a teaching kernel written by Douglas Comer. This
+              documents work added on top of it and carries none of its
+              source.
             </p>
             <p className="mt-3 font-mono text-[0.7rem] uppercase tracking-[0.16em] text-meta-faint">
               Irfan Firosh
