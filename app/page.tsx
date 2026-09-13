@@ -1,8 +1,11 @@
 import { BootTerminal } from "@/components/BootTerminal";
+import { getBootLines } from "@/lib/boot";
 import { Mermaid } from "@/components/Mermaid";
 import { sections } from "@/lib/sections";
 
 export default function Home() {
+  const bootLines = getBootLines();
+
   return (
     <main className="mx-auto max-w-3xl px-6">
       <section className="pt-20 pb-16">
@@ -15,8 +18,8 @@ export default function Home() {
           tree, booted on an Intel Galileo board over a serial console.
         </p>
 
-        <div className="mt-10 w-[150%] max-w-[calc(100vw-3rem)] lg:-ml-[25%]">
-          <BootTerminal />
+        <div className="mt-10 w-[125%] max-w-[calc(100vw-3rem)] lg:-ml-[12.5%]">
+          <BootTerminal lines={bootLines} />
           <p className="mt-3 font-mono text-[0.7rem] text-meta-faint">
             First 5 lines of the serial capture, 13 September 2026.
           </p>
