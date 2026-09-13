@@ -10,10 +10,10 @@ export default function Home() {
     <main className="mx-auto max-w-3xl px-6">
       <section className="pt-20 pb-16">
         <p className="label">Bare metal &middot; x86 &middot; 2026</p>
-        <h1 className="mt-4 max-w-[20ch] text-[2.15rem] font-semibold leading-[1.14] tracking-[-0.025em] text-ink-strong">
+        <h1 className="mt-4 text-[2.3rem] font-semibold leading-[1.16] tracking-[-0.025em] text-balance text-ink-strong">
           A teaching kernel, six subsystems deep, on real hardware
         </h1>
-        <p className="mt-5 max-w-[58ch] text-[0.95rem] leading-relaxed text-muted">
+        <p className="mt-5 max-w-[68ch] text-[0.95rem] leading-relaxed text-muted">
           Six subsystems built on the XINU teaching kernel, booted on an Intel
           Galileo board and driven over a serial console.
         </p>
