@@ -5,7 +5,7 @@ tree, and booted the result on an Intel Galileo board over a serial console.
 This repository is what I learned doing it: five design notes, the diagrams,
 and the recording of the boot.
 
-**Live site:** _set once deployed_
+**Live site:** [xinu.irfanfirosh.app](https://xinu.irfanfirosh.app)
 
 ---
 
