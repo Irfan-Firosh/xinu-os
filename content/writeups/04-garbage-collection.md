@@ -89,7 +89,7 @@ separate run and nothing below was re-observed on it.
 
 `createv1()` and `createv2()` (lab 1 part 2) predate this collector and
 never initialized a field that did not exist when they were written. Once
-merged into one tree, both now set `prptr->headptr = NULL` alongside their
+merged together, both now set `prptr->headptr = NULL` alongside their
 other process-table setup, because `kill()` walks `headptr`
 unconditionally on every process, including ones created through either
 path: an uninitialized pointer there would not be a missed feature, it
