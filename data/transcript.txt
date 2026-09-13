@@ -1,0 +1,55 @@
+Xinu for galileo -- version #2  (ifirosh)  Sun Sep 13 02:36:44 AM EDT 2026
+
+Ethernet Link is Up
+MAC address is 98:4f:ee:00:4c:34
+ 233393696 bytes of free memory.  Free list:
+           [0x011451E0 to 0x0EFD8FFF]
+           [0x0FDEF000 to 0x0FDEFFFF]
+    116557 bytes of Xinu code.
+           [0x00100000 to 0x0011C74C]
+  16817640 bytes of data.
+           [0x00120200 to 0x01129FE7]
+
+
+=== process management ===
+main() runs as pid 3, parent state 2
+
+=== garbage collection ===
+gc_getmem returned 011451E0; leaving it unfreed
+kill() will reclaim it when this process exits
+
+=== producer-consumer ===
+consumer received: HELLO XINU
+
+Hello World!
+Irfan Firosh, ifirosh, Spring 2026
+At 500 ms since bootload, no deadlock is detected.
+At 1000 ms since bootload, no deadlock is detected.
+
+=== dynamic priority scheduling ===
+At 1500 ms since bootload, no deadlock is detected.
+At 2000 ms since bootload, no deadlock is detected.
+At 2500 ms since bootload, no deadlock is detected.
+At 3000 ms since bootload, no deadlock is detected.
+At 3500 ms since bootload, no deadlock is detected.
+At 4000 ms since bootload, no deadlock is detected.
+At 4500 ms since bootload, no deadlock is detected.
+At 5000 ms since bootload, no deadlock is detected.
+At 5500 ms since bootload, no deadlock is detected.
+At 6000 ms since bootload, no deadlock is detected.
+At 6500 ms since bootload, no deadlock is detected.
+At 7000 ms since bootload, no deadlock is detected.
+PID 6 CPU-bound clkcounterms=7032 cpu=372 PID 7 CPU-bounavgresp=17 prid clkcountermso=1
+=7077 cpu=374 avgresp=17 prio=1
+PID 8 I/O-bound clkcounterms=7129 cpu=0 avgresp=1 prio=8
+PID 9 I/O-bound clkcounterms=7133 cpu=0 avgresp=1 prio=8
+PID 10 Sneaky clkcounterms=7141 cpu=5350 avgresp=1 prio=8
+At 7500 ms since bootload, no deadlock is detected.
+At 8000 ms since bootload, no deadlock is detected.
+At 8500 ms since bootload, no deadlock is detected.
+At 9000 ms since bootload, no deadlock is detected.
+
+=== demo complete ===
+At 9500 ms since bootload, no deadlock is detected.
+At 10000 ms since bootload, no deadlock is detected.
+At 10500 ms since bootload, no deadlock is detected.
