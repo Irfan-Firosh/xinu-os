@@ -4,14 +4,9 @@ import { useEffect, useRef, useState } from "react";
 
 let counter = 0;
 
-/**
- * Renders one mermaid graph. Mermaid is imported dynamically so it stays out
- * of the initial bundle, and its theme variables are read off the live CSS
- * custom properties, which is what keeps a diagram legible in both themes.
- */
+/** Renders one diagram, themed from the page's own CSS custom properties. */
 export function Mermaid({ chart }: { chart: string }) {
   const [svg, setSvg] = useState("");
-  const [failed, setFailed] = useState(false);
   const host = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -22,30 +17,26 @@ export function Mermaid({ chart }: { chart: string }) {
       const token = (name: string, fallback: string) =>
         style.getPropertyValue(name).trim() || fallback;
 
-      const ink = token("--ink", "#15181c");
-      const line = token("--line-strong", "#b4bdc6");
-      const surface = token("--surface", "#f8f9fb");
-      const accent = token("--accent", "#9a6410");
-
       const mermaid = (await import("mermaid")).default;
       mermaid.initialize({
         startOnLoad: false,
         theme: "base",
         securityLevel: "strict",
+        flowchart: { useMaxWidth: false, curve: "basis", padding: 12, nodeSpacing: 36, rankSpacing: 48 },
         fontFamily: "var(--font-mono), ui-monospace, monospace",
         themeVariables: {
           background: "transparent",
-          primaryColor: surface,
-          primaryTextColor: ink,
-          primaryBorderColor: line,
-          secondaryColor: surface,
-          tertiaryColor: surface,
-          lineColor: accent,
-          textColor: ink,
-          nodeBorder: line,
+          primaryColor: token("--canvas", "#ffffff"),
+          primaryTextColor: token("--ink", "#17233a"),
+          primaryBorderColor: token("--border-strong", "#dfe3e8"),
+          secondaryColor: token("--surface", "#f6f7f8"),
+          tertiaryColor: token("--surface-subtle", "#fafbfb"),
+          lineColor: token("--accent", "#f44f5f"),
+          textColor: token("--ink", "#17233a"),
+          nodeBorder: token("--border-strong", "#dfe3e8"),
           clusterBkg: "transparent",
-          clusterBorder: line,
-          edgeLabelBackground: surface,
+          clusterBorder: token("--border", "#e3e6ea"),
+          edgeLabelBackground: token("--canvas", "#ffffff"),
           fontSize: "13px",
         },
       });
@@ -58,7 +49,7 @@ export function Mermaid({ chart }: { chart: string }) {
         );
         if (live) setSvg(out);
       } catch {
-        if (live) setFailed(true);
+        /* A diagram that will not parse is left out rather than shown broken. */
       }
     }
 
@@ -68,21 +59,13 @@ export function Mermaid({ chart }: { chart: string }) {
     };
   }, [chart]);
 
-  if (failed) {
-    return (
-      <pre className="text-[0.75rem]">
-        <code>{chart}</code>
-      </pre>
-    );
-  }
-
   return (
-    <figure className="my-7 overflow-x-auto rounded-lg border border-line bg-surface px-4 py-6">
+    <div className="w-full">
       <div
         ref={host}
-        className="flex min-w-fit justify-center [&_svg]:h-auto [&_svg]:max-w-full"
+        className="flex justify-center [&_svg]:h-auto [&_svg]:!w-auto [&_svg]:!max-w-full"
         dangerouslySetInnerHTML={{ __html: svg }}
       />
-    </figure>
+    </div>
   );
 }

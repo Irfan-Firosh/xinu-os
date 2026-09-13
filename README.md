@@ -16,9 +16,12 @@ Next.js site.
 - `data/transcript.txt` — serial output captured while the merged kernel
   booted on an Intel Galileo board (`galileo165`) at Purdue.
 - `data/replay-events.json` — `[delayMs, text]` pairs derived from `script(1)`
-  timing data for that same capture, so the site can retype the output at the
-  pace the hardware produced it.
+  timing data for that same capture.
 - `app/`, `components/`, `lib/` — the site itself.
+
+The site shows only the first five lines of the boot, typed out live. The
+board's banner prints the author's Purdue username (`ifirosh`); the site
+prints the name instead. `data/transcript.txt` is the untouched capture.
 
 ## What is deliberately not here
 
