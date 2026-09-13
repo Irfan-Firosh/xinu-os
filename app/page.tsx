@@ -14,8 +14,8 @@ export default function Home() {
           A teaching kernel, six subsystems deep, on real hardware
         </h1>
         <p className="mt-5 max-w-[58ch] text-[0.95rem] leading-relaxed text-muted">
-          Six subsystems built on the XINU teaching kernel and merged into one
-          tree, booted on an Intel Galileo board over a serial console.
+          Six subsystems built on the XINU teaching kernel, booted on an Intel
+          Galileo board and driven over a serial console.
         </p>
 
         <div className="mt-10 w-[125%] max-w-[calc(100vw-3rem)] lg:-ml-[12.5%]">

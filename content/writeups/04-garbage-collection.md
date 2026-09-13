@@ -16,7 +16,7 @@ through.
 
 ## Design
 
-Rather than a static table of allocations (the handout explicitly
+Rather than a static table of allocations (the specification explicitly
 disallows one), each process gets its own linked list of every block it
 currently owns. Two wrapper calls, `gc_getmem()`/`gc_freemem()`, mirror
 `getmem()`/`freemem()` but additionally splice a tracking node into that
@@ -69,10 +69,10 @@ graph TD
 
 ## Measured result
 
-The figures below are from the student's original lab 4 tree, run and
-built on its own before any lab was merged with any other; the unified
-kernel in this repository has not been booted, so nothing here should be
-read as having been re-observed post-merge.
+The figures below are from the original garbage-collection tree, built and
+run on its own before anything was merged with anything else. The unified
+kernel in this repository has since been booted on hardware, but that is a
+separate run and nothing below was re-observed on it.
 
 - `struct gc_memblk`: 12 bytes per outstanding allocation; `headptr`: 4
   bytes per process-table entry.
@@ -110,10 +110,10 @@ bookkeeping. If the data block frees successfully but the second
 `freemem()` call (the node) returns `SYSERR`, the data block is correctly
 released but the node itself is now unreachable, already unlinked from
 the process's list, and leaks instead. This is left in place deliberately, as a real defect in the
-submitted work, rather than silently corrected. The fix is straightforward
+original version, rather than silently corrected. The fix is straightforward
 in principle: unlink only after both frees succeed. But making that
-change here would mean patching the graded behavior after the fact, so it
-stands as documented, disclosed technical debt.
+change here would mean rewriting the original behavior after the fact, so
+it stands as documented, disclosed technical debt.
 
 Two smaller, intentional deviations from "works exactly like
 `getmem`/`freemem`":

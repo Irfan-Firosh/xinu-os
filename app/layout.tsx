@@ -33,7 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               xinu<span className="text-accent">/</span>galileo
             </span>
             <a
-              href={links.privateRepo}
+              href={links.repo}
               className="ml-auto font-mono text-[0.7rem] uppercase tracking-[0.16em] text-meta transition-colors hover:text-accent-hover"
             >
               Notes &#8599;

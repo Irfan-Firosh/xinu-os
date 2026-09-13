@@ -80,18 +80,17 @@ exit.
 - `createv2.c`: 128 lines, ~2 original, plus the 6-line `terminator()`.
 - `getparentstate.c`: fully original, ~27 code lines across 5 validated
   return paths.
-- No course handout is included in this repository for any lab, because the
-  instructor's PDFs are not redistributed here, and this lab in particular
-  has no handout on hand at all. So none of this section's behavior can be
-  checked against a quoted course requirement: it is inferred from the
-  code and the test harness alone.
+- No written specification for this subsystem is included in this
+  repository, and none is on hand for this part in particular. So none of
+  this section's behavior can be checked against a quoted requirement: it
+  is inferred from the code and the test harness alone.
 
 ## Merge-only additions
 
 Neither `createv1()` nor `createv2()` originally initialized
-`prptr->headptr`, the linked-list head the garbage collector (lab 4) uses
+`prptr->headptr`, the linked-list head the garbage collector uses
 to track a process's outstanding heap allocations. That field did not exist
-when this lab was written; the two labs never shared a tree until this
+when this work was written; the two never shared a tree until this
 repository was assembled. `kill()` walks `headptr` unconditionally on every
 process exit, so an uninitialized pointer there is not a cosmetic gap, it
 is memory corruption on teardown for any process created through either
@@ -108,5 +107,5 @@ for the collector side of this.
   The coupling is undocumented and easy to break by reordering.
 - `terminator()` prints unconditionally on every normal process exit.
   There is no way to suppress it.
-- This lab's requirement mapping is unverified against a course handout,
-  because none is present in this repository for it.
+- This subsystem's requirement mapping is unverified against a written
+  specification, because none is present in this repository for it.

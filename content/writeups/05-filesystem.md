@@ -1,19 +1,19 @@
 # Filesystem: Indirect Block Resolution
 
-Source: `device/lifs/lifsetup.c`; instructor-provided context:
+Source: `device/lifs/lifsetup.c`; supporting code I did not write:
 `include/lifilesys.h`, `device/lifs/lifindballoc.c`,
 `device/lifs/lifdballoc.c`, `device/lifs/lifflush.c`.
 
 ## Attribution: read this first
 
 **Twenty-one of the twenty-two files in `device/lifs/`, plus
-`include/lifilesys.h`, are instructor-provided starter code**, unmodified.
+`include/lifilesys.h`, are pre-existing starter code I did not write**, unmodified.
 That starter code defines the on-disk and in-memory control-block layouts,
 the index-block and data-block allocators, and the flush logic. **The
-single file the student wrote is `device/lifs/lifsetup.c`.** Its starter
+single file here that is mine is `device/lifs/lifsetup.c`.** Its starter
 version worked only for file offsets within the first 15 direct blocks and
 halted with a kernel panic on any offset past that: a halt, not a returned
-error. The student's contribution replaces
+error. My contribution replaces
 that panic with a working three-level indirect block walk. Nothing here
 should be read as "wrote a file system": the
 accurate claim is "extended the block-resolution path of an existing
@@ -25,13 +25,13 @@ A filesystem has to answer one question for every read or write: given a
 byte offset into a file, which physical disk block holds it? The starter
 answers that only for the first 7,680 bytes of a file, via 15 direct
 pointers stored in the file's index block. Anything past that returns an
-error. The assignment is to extend that answer using the classic Unix
+error. The goal is to extend that answer using the classic Unix
 inode scheme: pointers-to-pointers, so a fixed-size index block can address
 far more data than it has room to point at directly.
 
 ## Key data structure
 
-The instructor-provided index block already reserves the pointers this
+The existing index block already reserves the pointers this
 design needs: an array of 15 direct block pointers, plus one scalar pointer
 each for the singly, doubly, and triply indirect levels, all four fields
 sharing the same block-id type.
@@ -40,7 +40,7 @@ Each indirect pointer, when followed, leads to a 512-byte block holding
 128 more 4-byte pointers (`LIF_NUM_ENT_PER_BLK = LIF_BLKSIZ / sizeof
 (dbid32)`). One level of indirection therefore multiplies addressable
 space by 128. The in-memory file-control-block side (also
-instructor-provided) mirrors this with one cache buffer per level, a data
+pre-existing) mirrors this with one cache buffer per level, a data
 block plus one buffer each for the singly, doubly, and triply indirect
 blocks, and one dirty flag per buffer, five in total.
 
@@ -129,11 +129,11 @@ That says nothing about runtime behavior; see the next section.
   end of that in-memory block, into adjacent fields of the file control
   structure. In practice the file's seek path bounds position by the
   file's current size, and the ramdisk this was exercised against is far
-  smaller than the theoretical maximum, so this is unreachable in the
-  student's own testing, but the guard is genuinely absent, and this is
+  smaller than the theoretical maximum, so this is unreachable in
+  my own testing, but the guard is genuinely absent, and this is
   disclosed rather than silently patched.
 - **The doubly- and triply-indirect paths were never exercised at
-  runtime.** The student's own test harness writes 10,000 bytes and seeks
+  runtime.** My own test harness writes 10,000 bytes and seeks
   to offset 20,000, both well inside the singly-indirect region, which
   extends to byte 73,216. The test ramdisk (`RM_BLKS` in
   `include/ramdisk.h`) is 16,777,216 bytes, comfortably large enough to

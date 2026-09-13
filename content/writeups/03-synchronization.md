@@ -9,11 +9,11 @@ Source: `include/circular_buffer.h`, `system/circular_buffer.c`,
 
 ## The problem
 
-This lab has two parts. First, the textbook bounded-buffer producer/
+This work has two parts. First, the textbook bounded-buffer producer/
 consumer problem: coordinate a writer and a reader across a fixed-size ring
 buffer using semaphores, without a full or empty buffer causing either side
 to corrupt data. Second, and the harder part: build deadlock detection for
-XINU's semaphores, using only static memory (the handout explicitly forbids
+XINU's semaphores, using only static memory (the specification explicitly forbids
 `getmem()` here), under the restriction that a process can wait on at most
 one semaphore and a semaphore can be held by at most one process at a time.
 
@@ -41,8 +41,8 @@ extern sid32 proc_waiting[NPROC];  /* process -> semaphore it awaits */
 
 (`include/deadlock_detection.h:7-8`, with `NO_PROC`/`NO_SEM` as the `-1`
 sentinels for "no edge here.") That is 50 entries of `int32` for
-NSEM=30, NPROC=20: 200 bytes, no dynamic allocation, satisfying the
-handout's constraint directly.
+NSEM=30, NPROC=20: 200 bytes, no dynamic allocation, satisfying that
+constraint directly.
 
 ## Mechanism
 
@@ -113,12 +113,12 @@ graph LR
   `static` inside a header pulled into every translation unit via
   `include/xinu.h`, so every `.c` file compiled its own private, unused
   copy and `-Wall` flagged an unused variable across the whole tree. The
-  handout's own specification asked for this. The array declaration and
+  original specification asked for this. The array declaration and
   storage were split into an `extern` declaration in the header and a
   single definition in `system/circular_buffer.c`, clearing roughly 195
   warnings.
 - `consume_characters()` wrote one byte past the caller-requested length
-  (`buf[len] = '\0'`) to null-terminate a buffer the handout only
+  (`buf[len] = '\0'`) to null-terminate a buffer the interface only
   guarantees is at least `len` bytes: a real one-byte overflow for a
   caller passing an exactly-sized buffer. Removed.
 - `check_deadlock()`, an earlier, unused design where the acquisition path
@@ -130,15 +130,15 @@ graph LR
 
 - The single-owner model is exact for binary semaphores but produces a
   wrong graph for a counting semaphore initialized above 1: a second
-  acquirer simply overwrites `sem_owner`, losing the first. The handout
+  acquirer simply overwrites `sem_owner`, losing the first. The specification
   restricts the problem to single-owner semaphores, so this is in scope,
   but this is not general-purpose deadlock detection for arbitrary
   counting semaphores.
 - `detect_deadlock()` calls `kprintf()` from inside the clock interrupt
   handler. `kprintf()` is synchronous, polled UART output. On a detected cycle this prints
   one line per cycle member from interrupt context, which can add
-  non-trivial latency to a 1 ms tick. The handout asks for exactly this
-  placement, so it is not a grading issue, but it is a real cost to be
-  able to explain.
+  non-trivial latency to a 1 ms tick. The specification asks for exactly this
+  placement, so it is intended, but it is a real cost to be able to
+  explain.
 - Deadlock detection is verified by inspecting printed output for the two
   constructed scenarios, not by an automated assertion.

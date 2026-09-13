@@ -17,7 +17,7 @@ CPU-bound one wants long uninterrupted runs. This work replaces the
 existing ready-list mechanism.
 
 **This is a scheduling policy, not a new queue data structure.** The
-course handout directs students to reuse XINU's existing priority-ordered
+specification calls for reusing XINU's existing priority-ordered
 ready list "as if it were" a multilevel feedback queue, rather than build
 an actual array of nine FIFO queues. Nothing in this repository implements
 nine physical queues. `insert()`/`dequeue()` on the one ready list are
@@ -103,13 +103,13 @@ Response time uses a three-case estimator in `getavgresptime()`
 its historical total against its current wait; a ready process on its
 first wait reports the raw wait so far; anything else reports its running
 average, with a divide-by-zero guard for a process that has never been
-dispatched. The course specification's formula also requires rounding a
+dispatched. The specification's formula also requires rounding a
 zero wait-time sample up to 1 ms rather than recording a true zero; that
 rounding step (`system/resched.c`, immediately before the response-time
-accumulation) was missing from the submitted work and was added when this
+accumulation) was missing from the original version and was added when this
 repository was assembled. See "Corrections" below.
 
-**Merge-only addition.** `createv1()`/`createv2()` (lab 1 part 2) let a
+**Merge-only addition.** `createv1()`/`createv2()` let a
 caller keep its requested priority instead of the mid-range default that
 stock `create()` now hardcodes for the scheduler's benefit. Combined with
 the dispatch-table lookup, a process dispatched at a priority outside
@@ -121,7 +121,7 @@ validation, so nothing stops it going negative in principle, but nothing in
 this tree drives it there. This clamp exists purely because the merge puts a
 priority-preserving create path and a nine-entry table in the same tree for
 the first time; neither existed alongside the other in the original
-coursework.
+work.
 
 ## Adversarial workload
 
@@ -138,17 +138,17 @@ last-behavior test.
 
 ## Measured result
 
-The figures below are from the student's original lab 2 tree, run and
-built on its own before any lab was merged with any other; the unified
-kernel in this repository has not been booted, so nothing here should be
-read as having been re-observed post-merge.
+The figures below are from the original scheduling tree, built and run on
+its own before anything was merged with anything else. The unified kernel
+in this repository has since been booted on hardware, but that is a
+separate run and nothing below was re-observed on it.
 
 - Benchmark harness: 5 scenarios (pure CPU-bound, pure I/O-bound, mixed,
   staggered creation, and the adversarial mix) driving 31 process
   creations, with 9 automated PASS/FAIL assertions covering the clock,
   accounting, response-time formula, table contents, and per-case priority
   outcomes.
-- This lab required the most rebuild iterations of the six (51, versus a
+- This subsystem required the most rebuild iterations of the six (51, versus a
   median in the 20s to 30s), consistent with it touching the scheduler's core
   dispatch path, the highest blast-radius change in this body of work.
 - Linked image produced: `xinu` 154,736 bytes / `xinu.xbin` 131,584 bytes.
@@ -156,19 +156,19 @@ read as having been re-observed post-merge.
 ## Corrections made during assembly
 
 - `include/dynsched.h`'s `struct sched_ent` was missing a semicolon after
-  its last field in the submitted work: a warning on the course's
-  cross-compiler, an error on stricter ones. Fixed.
+  its last field in the original version: a warning on the cross-compiler
+  used here, an error on stricter ones. Fixed.
 - The response-time rounding rule above (diff of 0 rounds up to 1 ms) was
-  specified by the course and missing from the submission. Added.
+  specified, and missing from the original version. Added.
 
 ## Known limitations
 
 - The millisecond counter is declared in `system/initialize.c` rather than
-  `system/clkinit.c` as the handout specifies: functionally identical,
+  `system/clkinit.c` as the specification requires: functionally identical,
   literal deviation from the spec text.
 - The benchmark apps test a relative elapsed time
   (`clkcounterms - start < TIMER_LIMIT`) rather than the absolute
-  boot-relative check the handout describes; arguably more useful for the
+  boot-relative check the specification describes; arguably more useful for the
   staggered-creation scenario, but a deviation.
 - `sneaky()`'s interrupt-unsafe read of `preempt` is intentional (it is the
   exploit) but is a genuine layering violation, not a pattern to reuse

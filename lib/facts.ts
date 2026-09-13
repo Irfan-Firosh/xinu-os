@@ -1,3 +1,3 @@
 export const links = {
-  privateRepo: "https://github.com/Irfan-Firosh/xinu-os-kernel",
+  repo: "https://github.com/Irfan-Firosh/xinu-os",
 } as const;
