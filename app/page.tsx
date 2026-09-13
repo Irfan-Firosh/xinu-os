@@ -15,7 +15,7 @@ export default function Home() {
           tree, booted on an Intel Galileo board over a serial console.
         </p>
 
-        <div className="mt-10">
+        <div className="mt-10 w-[150%] max-w-[calc(100vw-3rem)] lg:-ml-[25%]">
           <BootTerminal />
           <p className="mt-3 font-mono text-[0.7rem] text-meta-faint">
             First 5 lines of the serial capture, 13 September 2026.
